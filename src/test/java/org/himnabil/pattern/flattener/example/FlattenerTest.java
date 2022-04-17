@@ -1,5 +1,7 @@
 package org.himnabil.pattern.flattener.example;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -12,6 +14,7 @@ import java.time.chrono.ChronoPeriod;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -68,7 +71,7 @@ class FlattenerTest {
                                    List<DataNature> dataNatures,
                                    int nbPoints,
                                    Instant start,
-                                   Duration step) {
+                                  Duration step) {
         return new Room(
                 UUID.randomUUID(),
                 Stream.generate(
@@ -107,37 +110,53 @@ class FlattenerTest {
                 );
     }
 
+    int nbHomes = 250;
+    int nbRooms = 4;
+    int nbDevices = 4;
+    List<DataNature> dataNatures = List.of(
+            new DataNature("TEMPERATURE"),
+            new DataNature("HUMIDITY"),
+            new DataNature("LIGHT"),
+            new DataNature("CO2")
+    );
+    int nbPoints = 4000;
+    Duration step = Duration.ofMinutes(1);
+
+    int totalNbPoints = nbHomes * nbRooms * nbDevices * dataNatures.size() * nbPoints;
+
+    User user;
+
+
+
     static double randomValue() {
         return (Math.random() * 100) - 50;
     }
 
-    static Stream<Arguments> flatteners(){
-        return Stream.of(
-                Arguments.of("naiveFlattener",naiveFlattener)
-        );
-    }
-
-    @ParameterizedTest(name = "flatterer : {0}")
-    @MethodSource("flatteners")
-    void flattenNominalCase(String name,Flattener flattener) {
-        int nbHomes = 2;
-        int nbRooms = 3;
-        int nbDevices = 2;
-        List<DataNature> dataNatures = List.of(new DataNature("TEMPERATURE"), new DataNature("HUMIDITY"));
-        int nbPoints = 10;
-        Duration step = Duration.ofMinutes(1);
-
-        int totalNbPoints = nbHomes * nbRooms * nbDevices * dataNatures.size() * nbPoints;
-
-        User user = generateRandomUser(
+    @BeforeEach
+    void setUp() {
+        user = generateRandomUser(
                 nbHomes,
                 nbRooms,
                 nbDevices,
                 dataNatures,
                 nbPoints,
-                Instant.now().minus( step.multipliedBy(nbDevices)),
+                Instant.now().minus(step.multipliedBy(nbDevices)),
                 step);
+    }
 
+
+    static Stream<Arguments> flatteners(){
+        return IntStream.range(0, 10).boxed()
+                .flatMap(i -> Stream.of(
+                        Arguments.of(i, "naive ",naiveFlattener),
+                        Arguments.of(i, "structural",structuralFlattener)
+                ));
+    }
+
+    @ParameterizedTest(name = "flatterer : {0}, {1}")
+    @MethodSource("flatteners")
+    void flattenNominalCase(int i, String name,Flattener flattener) {
+        
         List<FlattenDataPoint> result = flattener.flatten(user).toList();
 
         assertThat(result).hasSize(totalNbPoints);
