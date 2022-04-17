@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8750d852-9b12-4ead-b23b-13c9ba9f5510" name="Changes" comment="Initial Setup &#10;    the use case : &#10;      for a given nested model like the User in the Model.java class in a tree structure&#10;         User -&gt; Home -&gt; Room -&gt; Device -&gt; Data -&gt; DataPoint&#10;      we would like to flatten the structure to a Stream of FlattenDataPoint in FlattenedModel.java that contain the same data &#10;       by implementing Flattener.flatten">
+    <list default="true" id="8750d852-9b12-4ead-b23b-13c9ba9f5510" name="Changes" comment="1st test &#10;  tooling for model generation &#10;  nominal case">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/himnabil/pattern/flattener/example/Fratteners.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/himnabil/pattern/flattener/example/FlattenedModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/himnabil/pattern/flattener/example/FlattenedModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/himnabil/pattern/flattener/example/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/himnabil/pattern/flattener/example/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/himnabil/pattern/flattener/example/Flattener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/himnabil/pattern/flattener/example/Flattener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/himnabil/pattern/flattener/example/FlattenerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/himnabil/pattern/flattener/example/FlattenerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,8 +22,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -62,7 +64,7 @@
       <recent name="org.himnabil.pattern.flattener.example" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.FlattenerTest">
     <configuration name="FlattenerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="flattener-pattern-example" />
       <extension name="coverage">
@@ -78,9 +80,43 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="FlattenerTest.flattenNominalCase (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="flattener-pattern-example" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.himnabil.pattern.flattener.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.himnabil.pattern.flattener.example" />
+      <option name="MAIN_CLASS_NAME" value="org.himnabil.pattern.flattener.example.FlattenerTest" />
+      <option name="METHOD_NAME" value="flattenNominalCase(org.himnabil.pattern.flattener.example.Flattener)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FlattenerTest.flattenNominalCase" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="flattener-pattern-example" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.himnabil.pattern.flattener.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.himnabil.pattern.flattener.example" />
+      <option name="MAIN_CLASS_NAME" value="org.himnabil.pattern.flattener.example.FlattenerTest" />
+      <option name="METHOD_NAME" value="flattenNominalCase" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.FlattenerTest" />
+        <item itemvalue="JUnit.FlattenerTest.flattenNominalCase (1)" />
+        <item itemvalue="JUnit.FlattenerTest.flattenNominalCase" />
       </list>
     </recent_temporary>
   </component>
@@ -92,7 +128,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650110836414</updated>
-      <workItem from="1650110838673" duration="10256000" />
+      <workItem from="1650110838673" duration="15690000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Setup &#10;    the use case : &#10;      for a given nested model like the User in the Model.java class in a tree structure&#10;         User -&gt; Home -&gt; Room -&gt; Device -&gt; Data -&gt; DataPoint&#10;      we would like to flatten the structure to a Stream of FlattenDataPoint in FlattenedModel.java that contain the same data &#10;       by implementing Flattener.flatten">
       <created>1650205186488</created>
@@ -115,7 +151,28 @@
       <option name="project" value="LOCAL" />
       <updated>1650205435711</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Initial Setup &#10;    the use case : &#10;      for a given nested model like the User in the Model.java class in a tree structure&#10;         User -&gt; Home -&gt; Room -&gt; Device -&gt; Data -&gt; DataPoint&#10;      we would like to flatten the structure to a Stream of FlattenDataPoint in FlattenedModel.java that contain the same data &#10;       by implementing Flattener.flatten">
+      <created>1650209159611</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1650209159611</updated>
+    </task>
+    <task id="LOCAL-00005" summary="1st test &#10;  tooling for model generation &#10;  nominal case">
+      <created>1650209313522</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1650209313522</updated>
+    </task>
+    <task id="LOCAL-00006" summary="1st test &#10;  tooling for model generation &#10;  nominal case">
+      <created>1650209493610</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1650209493610</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -134,6 +191,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial Setup &#10;    the use case : &#10;      for a given nested model like the User in the Model.java class in a tree structure&#10;         User -&gt; Home -&gt; Room -&gt; Device -&gt; Data -&gt; DataPoint&#10;      we would like to flatten the structure to a Stream of FlattenDataPoint in FlattenedModel.java that contain the same data &#10;       by implementing Flattener.flatten" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial Setup &#10;    the use case : &#10;      for a given nested model like the User in the Model.java class in a tree structure&#10;         User -&gt; Home -&gt; Room -&gt; Device -&gt; Data -&gt; DataPoint&#10;      we would like to flatten the structure to a Stream of FlattenDataPoint in FlattenedModel.java that contain the same data &#10;       by implementing Flattener.flatten" />
+    <MESSAGE value="1st test &#10;  tooling for model generation &#10;  nominal case" />
+    <option name="LAST_COMMIT_MESSAGE" value="1st test &#10;  tooling for model generation &#10;  nominal case" />
   </component>
 </project>

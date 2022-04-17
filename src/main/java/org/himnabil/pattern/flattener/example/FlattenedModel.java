@@ -8,6 +8,7 @@ public class FlattenedModel {
     public record FlattenDataPoint(
             UUID userId,
             UUID homeId,
+            UUID roomId,
             UUID deviceId,
             Model.DataNature nature,
             Instant ts,

@@ -1,6 +1,10 @@
 package org.himnabil.pattern.flattener.example;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -107,19 +111,35 @@ class FlattenerTest {
         return (Math.random() * 100) - 50;
     }
 
-    @Test
-    void flattenNominalCase() {
+    static Stream<Arguments> flatteners(){
+        return Stream.of(
+                Arguments.of("naiveFlattener",naiveFlattener)
+        );
+    }
+
+    @ParameterizedTest(name = "flatterer : {0}")
+    @MethodSource("flatteners")
+    void flattenNominalCase(String name,Flattener flattener) {
+        int nbHomes = 2;
+        int nbRooms = 3;
+        int nbDevices = 2;
+        List<DataNature> dataNatures = List.of(new DataNature("TEMPERATURE"), new DataNature("HUMIDITY"));
+        int nbPoints = 10;
+        Duration step = Duration.ofMinutes(1);
+
+        int totalNbPoints = nbHomes * nbRooms * nbDevices * dataNatures.size() * nbPoints;
+
         User user = generateRandomUser(
-                2,
-                3,
-                2,
-                List.of(new DataNature("TEMPERATURE"), new DataNature("HUMIDITY")),
-                10,
-                Instant.now().minus(10, ChronoUnit.MINUTES),
-                Duration.ofMinutes(1));
+                nbHomes,
+                nbRooms,
+                nbDevices,
+                dataNatures,
+                nbPoints,
+                Instant.now().minus( step.multipliedBy(nbDevices)),
+                step);
 
-        List<FlattenDataPoint> result = flatten(user).toList();
+        List<FlattenDataPoint> result = flattener.flatten(user).toList();
 
-        assertThat(result).hasSize(240); // 2 home * 3 room * 2 device * 2 dataNatures * 10 points
+        assertThat(result).hasSize(totalNbPoints);
     }
 }
