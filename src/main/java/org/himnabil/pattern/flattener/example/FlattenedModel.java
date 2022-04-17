@@ -14,9 +14,18 @@ public class FlattenedModel {
                 .map(home -> new FlattenHome(user.userId(), home.homeId(), home.rooms()));
     }
 
+    public static Stream<FlattenHome> parallelStreamFlattenHome(User user) {
+        return user.homes().parallelStream()
+                .map(home -> new FlattenHome(user.userId(), home.homeId(), home.rooms()));
+    }
     public record FlattenHome(UUID userId, UUID homeId, List<Room> rooms) {
         public Stream<FlattenRoom> stream() {
             return rooms.stream()
+                    .map(room -> new FlattenRoom(userId, homeId, room.roomId(), room.devices()));
+        }
+
+        public Stream<FlattenRoom> parallelStream() {
+            return rooms.parallelStream()
                     .map(room -> new FlattenRoom(userId, homeId, room.roomId(), room.devices()));
         }
     }
@@ -26,11 +35,22 @@ public class FlattenedModel {
             return devices.stream()
                     .map(device -> new FlattenDevice(userId, homeId, roomId, device.deviceId(), device.data()));
         }
+
+        public Stream<FlattenDevice> parallelStream() {
+            return devices.parallelStream()
+                    .map(device -> new FlattenDevice(userId, homeId, roomId, device.deviceId(), device.data()));
+        }
+
     }
 
     public record FlattenDevice(UUID userId, UUID homeId, UUID roomId, UUID deviceId, List<Data> data) {
         public Stream<FlattenData> stream() {
             return data.stream()
+                    .map(data -> new FlattenData(userId, homeId, roomId, deviceId, data.nature(), data.points()));
+        }
+
+        public Stream<FlattenData> parallelStream() {
+            return data.parallelStream()
                     .map(data -> new FlattenData(userId, homeId, roomId, deviceId, data.nature(), data.points()));
         }
     }
@@ -39,6 +59,12 @@ public class FlattenedModel {
                               List<DataPoint> points) {
         public Stream<FlattenDataPoint> stream() {
             return points.stream()
+                    .map(point -> new FlattenDataPoint(userId, homeId, roomId, deviceId, nature, point.ts(),
+                            point.value()));
+        }
+
+        public Stream<FlattenDataPoint> parallelStream() {
+            return points.parallelStream()
                     .map(point -> new FlattenDataPoint(userId, homeId, roomId, deviceId, nature, point.ts(),
                             point.value()));
         }

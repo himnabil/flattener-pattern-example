@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8750d852-9b12-4ead-b23b-13c9ba9f5510" name="Changes" comment="providing the structural impl">
+    <list default="true" id="8750d852-9b12-4ead-b23b-13c9ba9f5510" name="Changes" comment="providing the structural parallel impl">
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/himnabil/pattern/flattener/example/Utils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/himnabil/pattern/flattener/example/FlattenedModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/himnabil/pattern/flattener/example/FlattenedModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/himnabil/pattern/flattener/example/Flattener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/himnabil/pattern/flattener/example/Flattener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/himnabil/pattern/flattener/example/FlattenerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/himnabil/pattern/flattener/example/FlattenerTest.java" afterDir="false" />
     </list>
@@ -62,18 +64,15 @@
       <recent name="org.himnabil.pattern.flattener.example" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.FlattenerTest.flattenNominalCase (2)">
+  <component name="RunManager" selected="JUnit.FlattenerTest">
     <configuration name="FlattenerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="flattener-pattern-example" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.himnabil.pattern.flattener.example.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <option name="PACKAGE_NAME" value="org.himnabil.pattern.flattener.example" />
       <option name="MAIN_CLASS_NAME" value="org.himnabil.pattern.flattener.example.FlattenerTest" />
+      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea -Xmx16g" />
+      <fork_mode value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -147,13 +146,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="JUnit.FlattenerTest" />
+      <item itemvalue="JUnit.FlattenerTest.flattenNominalCase" />
+      <item itemvalue="JUnit.FlattenerTest.flattenNominalCase.flatterer : naive " />
+      <item itemvalue="JUnit.FlattenerTest.flattenNominalCase.flatterer : structural" />
+      <item itemvalue="JUnit.FlattenerTest.flattenNominalCase (2)" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.FlattenerTest" />
         <item itemvalue="JUnit.FlattenerTest.flattenNominalCase (2)" />
         <item itemvalue="JUnit.FlattenerTest.flattenNominalCase.flatterer : naive " />
         <item itemvalue="JUnit.FlattenerTest.flattenNominalCase" />
         <item itemvalue="JUnit.FlattenerTest.flattenNominalCase.flatterer : structural" />
-        <item itemvalue="JUnit.FlattenerTest" />
       </list>
     </recent_temporary>
   </component>
@@ -165,7 +171,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650110836414</updated>
-      <workItem from="1650110838673" duration="21834000" />
+      <workItem from="1650110838673" duration="26210000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Setup &#10;    the use case : &#10;      for a given nested model like the User in the Model.java class in a tree structure&#10;         User -&gt; Home -&gt; Room -&gt; Device -&gt; Data -&gt; DataPoint&#10;      we would like to flatten the structure to a Stream of FlattenDataPoint in FlattenedModel.java that contain the same data &#10;       by implementing Flattener.flatten">
       <created>1650205186488</created>
@@ -223,7 +229,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650220744760</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="providing the structural parallel impl">
+      <created>1650223426690</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1650223426690</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -245,6 +258,7 @@
     <MESSAGE value="1st test &#10;  tooling for model generation &#10;  nominal case" />
     <MESSAGE value="providing a naive impl" />
     <MESSAGE value="providing the structural impl" />
-    <option name="LAST_COMMIT_MESSAGE" value="providing the structural impl" />
+    <MESSAGE value="providing the structural parallel impl" />
+    <option name="LAST_COMMIT_MESSAGE" value="providing the structural parallel impl" />
   </component>
 </project>

@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 public interface Flattener {
     Stream<FlattenDataPoint> flatten(User user);
 
-    Flattener naiveFlattener = (User user) -> {
+    Flattener naiveFlattener = user -> {
         Stream.Builder<FlattenDataPoint> builder = Stream.builder();
         for (Home home : user.homes()) {
             for (Room room : home.rooms()) {
@@ -48,15 +48,10 @@ public interface Flattener {
             .flatMap(FlattenDevice::stream)
             .flatMap(FlattenData::stream);
 
-    Flattener structuralAllParallelFlattener = user -> streamFlattenHome(user)
-            .parallel()
-            .flatMap(parallelize(FlattenHome::stream))
-            .flatMap(parallelize(FlattenRoom::stream))
-            .flatMap(parallelize(FlattenDevice::stream))
-            .flatMap(parallelize(FlattenData::stream));
-
-    static <T,U> Function<U,Stream<T>> parallelize(Function<U,Stream<T>> f) {
-        return f.andThen(Stream::parallel);
-    }
+    Flattener structuralAllParallelFlattener = user -> parallelStreamFlattenHome(user)
+            .flatMap(FlattenHome::parallelStream)
+            .flatMap(FlattenRoom::parallelStream)
+            .flatMap(FlattenDevice::parallelStream)
+            .flatMap(FlattenData::parallelStream);
 
 }

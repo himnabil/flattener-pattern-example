@@ -1,148 +1,40 @@
 package org.himnabil.pattern.flattener.example;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.time.chrono.ChronoPeriod;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-
-import static org.himnabil.pattern.flattener.example.Model.*;
-import static org.himnabil.pattern.flattener.example.FlattenedModel.*;
 import static org.himnabil.pattern.flattener.example.Flattener.*;
+import static org.himnabil.pattern.flattener.example.Model.DataNature;
+import static org.himnabil.pattern.flattener.example.Model.User;
+import static org.himnabil.pattern.flattener.example.Utils.generateRandomUser;
 class FlattenerTest {
 
-    static User generateRandomUser(int nbHomes,
-                                   int nbRooms,
-                                   int nbDevices,
-                                   List<DataNature> dataNatures,
-                                   int nbPoints,
-                                   Instant start,
-                                   Duration step) {
-        return new User(
-                UUID.randomUUID(),
-                Stream.generate(
-                        () -> generateRandomHome(
-                                nbRooms,
-                                nbDevices,
-                                dataNatures,
-                                nbPoints,
-                                start,
-                                step))
-                        .limit(nbHomes)
-                        .toList()
-                );
-    }
-
-    static Home generateRandomHome(int nbRooms,
-                                   int nbDevices,
-                                   List<DataNature> dataNatures,
-                                   int nbPoints,
-                                   Instant start,
-                                   Duration step) {
-        return new Home(
-                UUID.randomUUID(),
-                Stream.generate(
-                        () -> generateRandomRoom(
-                                nbDevices,
-                                dataNatures,
-                                nbPoints,
-                                start,
-                                step))
-                        .limit(nbRooms)
-                        .toList()
-                );
-    }
-
-    static Room generateRandomRoom(int nbDevices,
-                                   List<DataNature> dataNatures,
-                                   int nbPoints,
-                                   Instant start,
-                                  Duration step) {
-        return new Room(
-                UUID.randomUUID(),
-                Stream.generate(
-                        () -> generateRandomDevice(
-                                dataNatures,
-                                nbPoints,
-                                start,
-                                step))
-                        .limit(nbDevices)
-                        .toList()
-                );
-    }
-
-    static Device generateRandomDevice(List<DataNature> dataNatures,
-                                       int nbPoints,
-                                       Instant start,
-                                       Duration step) {
-        return new Device(
-                UUID.randomUUID(),
-                dataNatures.stream()
-                        .map(dataNature -> generateRandomData(dataNature, nbPoints, start, step))
-                        .toList()
-                );
-    }
-
-    static Data generateRandomData(DataNature dataNature,
-                                   int nbPoints,
-                                   Instant start,
-                                   Duration step) {
-        return new Data(
-                dataNature,
-                Stream.iterate(start, startTs -> startTs.plus(step))
-                        .map(ts -> new DataPoint(ts, randomValue()))
-                        .limit(nbPoints)
-                        .toList()
-                );
-    }
-
-    int nbHomes = 250;
-    int nbRooms = 4;
-    int nbDevices = 4;
-    List<DataNature> dataNatures = List.of(
+    final int nbHomes = 300;
+    final int nbRooms = 6;
+    final int nbDevices = 40;
+    final List<DataNature> dataNatures = List.of(
             new DataNature("TEMPERATURE"),
             new DataNature("HUMIDITY"),
             new DataNature("LIGHT"),
             new DataNature("CO2")
     );
-    int nbPoints = 4000;
+    final int nbPoints = 430;
     Duration step = Duration.ofMinutes(1);
-
-    int totalNbPoints = nbHomes * nbRooms * nbDevices * dataNatures.size() * nbPoints;
-
-    User user;
+    final private Instant start = Instant.now().minus(step.multipliedBy(nbPoints));
 
 
+    final int totalNbPoints = nbHomes * nbRooms * nbDevices * dataNatures.size() * nbPoints;
 
-    static double randomValue() {
-        return (Math.random() * 100) - 50;
-    }
-
-    @BeforeEach
-    void setUp() {
-        user = generateRandomUser(
-                nbHomes,
-                nbRooms,
-                nbDevices,
-                dataNatures,
-                nbPoints,
-                Instant.now().minus(step.multipliedBy(nbDevices)),
-                step);
-    }
+    final User user = generateRandomUser(nbHomes, nbRooms, nbDevices, dataNatures, nbPoints, start, step);
 
 
     static Stream<Arguments> flatteners(){
@@ -157,7 +49,7 @@ class FlattenerTest {
 
     @ParameterizedTest(name = "flatterer : {0}, {1}")
     @MethodSource("flatteners")
-    void flattenNominalCase(int i, String name,Flattener flattener) {
+    void flattenNominalCase(int i, String name, Flattener flattener) {
         assertThat(flattener
                 .flatten(user)
                 .toList()
