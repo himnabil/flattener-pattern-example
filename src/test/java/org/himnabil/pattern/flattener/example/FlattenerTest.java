@@ -149,16 +149,18 @@ class FlattenerTest {
         return IntStream.range(0, 10).boxed()
                 .flatMap(i -> Stream.of(
                         Arguments.of(i, "naive ",naiveFlattener),
-                        Arguments.of(i, "structural",structuralFlattener)
+                        Arguments.of(i, "structural",structuralFlattener),
+                        Arguments.of(i, "structuralParallel",structuralParallelFlattener),
+                        Arguments.of(i, "structuralAllParallel",structuralAllParallelFlattener)
                 ));
     }
 
     @ParameterizedTest(name = "flatterer : {0}, {1}")
     @MethodSource("flatteners")
     void flattenNominalCase(int i, String name,Flattener flattener) {
-        
-        List<FlattenDataPoint> result = flattener.flatten(user).toList();
-
-        assertThat(result).hasSize(totalNbPoints);
+        assertThat(flattener
+                .flatten(user)
+                .toList()
+        ).hasSize(totalNbPoints);
     }
 }

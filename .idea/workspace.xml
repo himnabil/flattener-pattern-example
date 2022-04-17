@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8750d852-9b12-4ead-b23b-13c9ba9f5510" name="Changes" comment="providing a naive impl">
+    <list default="true" id="8750d852-9b12-4ead-b23b-13c9ba9f5510" name="Changes" comment="providing the structural impl">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/himnabil/pattern/flattener/example/FlattenedModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/himnabil/pattern/flattener/example/FlattenedModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/himnabil/pattern/flattener/example/Flattener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/himnabil/pattern/flattener/example/Flattener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/himnabil/pattern/flattener/example/Fratteners.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/himnabil/pattern/flattener/example/FlattenerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/himnabil/pattern/flattener/example/FlattenerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -167,7 +165,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650110836414</updated>
-      <workItem from="1650110838673" duration="20323000" />
+      <workItem from="1650110838673" duration="21834000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Setup &#10;    the use case : &#10;      for a given nested model like the User in the Model.java class in a tree structure&#10;         User -&gt; Home -&gt; Room -&gt; Device -&gt; Data -&gt; DataPoint&#10;      we would like to flatten the structure to a Stream of FlattenDataPoint in FlattenedModel.java that contain the same data &#10;       by implementing Flattener.flatten">
       <created>1650205186488</created>
@@ -218,7 +216,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650216196087</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="providing the structural impl">
+      <created>1650220744760</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1650220744760</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -239,6 +244,7 @@
     <MESSAGE value="Initial Setup &#10;    the use case : &#10;      for a given nested model like the User in the Model.java class in a tree structure&#10;         User -&gt; Home -&gt; Room -&gt; Device -&gt; Data -&gt; DataPoint&#10;      we would like to flatten the structure to a Stream of FlattenDataPoint in FlattenedModel.java that contain the same data &#10;       by implementing Flattener.flatten" />
     <MESSAGE value="1st test &#10;  tooling for model generation &#10;  nominal case" />
     <MESSAGE value="providing a naive impl" />
-    <option name="LAST_COMMIT_MESSAGE" value="providing a naive impl" />
+    <MESSAGE value="providing the structural impl" />
+    <option name="LAST_COMMIT_MESSAGE" value="providing the structural impl" />
   </component>
 </project>

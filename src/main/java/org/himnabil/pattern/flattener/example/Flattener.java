@@ -3,6 +3,7 @@ package org.himnabil.pattern.flattener.example;
 import static org.himnabil.pattern.flattener.example.FlattenedModel.*;
 import static org.himnabil.pattern.flattener.example.Model.*;
 
+import java.util.function.Function;
 import java.util.stream.Stream;
 @FunctionalInterface
 public interface Flattener {
@@ -40,5 +41,22 @@ public interface Flattener {
             .flatMap(FlattenDevice::stream)
             .flatMap(FlattenData::stream);
 
+    Flattener structuralParallelFlattener = user -> streamFlattenHome(user)
+            .parallel()
+            .flatMap(FlattenHome::stream)
+            .flatMap(FlattenRoom::stream)
+            .flatMap(FlattenDevice::stream)
+            .flatMap(FlattenData::stream);
+
+    Flattener structuralAllParallelFlattener = user -> streamFlattenHome(user)
+            .parallel()
+            .flatMap(parallelize(FlattenHome::stream))
+            .flatMap(parallelize(FlattenRoom::stream))
+            .flatMap(parallelize(FlattenDevice::stream))
+            .flatMap(parallelize(FlattenData::stream));
+
+    static <T,U> Function<U,Stream<T>> parallelize(Function<U,Stream<T>> f) {
+        return f.andThen(Stream::parallel);
+    }
 
 }
